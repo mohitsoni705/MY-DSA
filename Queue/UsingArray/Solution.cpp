@@ -1,80 +1,52 @@
 #include<iostream>
-
 using namespace std;
 
-struct queue{
+struct Queue{
     int *arr;
-    int front;
-    int rear;
-    int cap;
-
-    queue(int c){
-        int cap = c;
-        arr = new int[cap];
-        front = -1;
-        rear = -1;
+    int front, cap , size;
+    Queue(int c){
+        arr = new int[c];
+        cap = c;
+        size = 0;
+        front = 0;
     }
-    void enqueue(int x){
-        if(isFull()){
-            cout<<"Queue is full"<<endl;
-            return;
-        }else{
-            if(front == -1 ){
-               front = 0; 
-            }
-            rear++;
-            arr[rear]=x;
-        }
-    };
-    void dequeue(){
-        if(isEmpty()){
-            cout<<"Queue is empty"<<endl;
-            return;
-        }else{
-            front++;
-        }
-    };
+    bool isFull(){ return(size == cap);}
+    bool isEmpty(){return(size == 0);}
+
     int getFront(){
         if(isEmpty()){
-            cout<<"Queue is empty"<<endl;
             return -1;
-        }else{
-            return arr[front];
         }
-    };
+        return arr[front];
+    }
     int getRear(){
         if(isEmpty()){
-            cout<<"Queue is empty"<<endl;
             return -1;
-        }else{
-            return arr[rear];
         }
-    };
-    bool isFull(){
-        return rear == cap - 1;
-    };
-    bool isEmpty(){
-        return front == -1 ;
-    };
-    int size(){
+        return arr[(front + size-1) % cap];
+    }
+    void enqueue(int val){
+        if(isFull()){
+            cout<<"Queue is full";
+            return;
+        }
+        int rear = (front + size)%cap;
+        arr[rear]=val;
+        cout<<"Successfully Enqueued";
+        size++;
+    }
+    void dequeue(){
         if(isEmpty()){
-            return 0;
-        }else{
-            return rear - front + 1;
+            cout<<"Queue is Empty";
+            return;
         }
-    };
+        front = (front + 1 ) % cap;
+        size--;
+    }
+
 };
 int main(){
-    struct queue q(5);
-    q.enqueue(10);
-    q.enqueue(20);
-    q.enqueue(30);
-    q.enqueue(40);
-    q.enqueue(50);
-    cout<<"Front element is: "<<q.getFront()<<endl;
-    cout<<"Rear element is: "<<q.getRear()<<endl;
-    cout<<"Queue size is: "<<q.size()<<endl;
+    Queue q = Queue(10);
     q.dequeue();
-    cout<<"Front element is: "<<q.getFront()<<endl;
     
 }

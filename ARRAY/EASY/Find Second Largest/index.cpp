@@ -12,9 +12,11 @@ int main(){
        if(largest<v[i]){
         smallest = largest;
          largest = v[i];
-       }
-       if(smallest>v[i] && smallest<largest){
+       }else if(smallest>v[i] && smallest<largest){
         smallest = v[i];
+       }
+       if(smallest == INT_MIN){
+         return -1;
        }
        
     }
