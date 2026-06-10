@@ -8,7 +8,7 @@ int kadans(vector<int> a){
     int currSum = 0;
     int maxSum = 0;
     for(int i = 0 ; i<a.size(); i++){
-        currSum = max(currSum,a[i]+currSum);
+        currSum = max(a[i],a[i]+currSum);
         maxSum = max(currSum,maxSum);
     }
     return maxSum;
